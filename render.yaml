@@ -1,0 +1,20 @@
+# Render Blueprint - Backend deployment configuration
+services:
+  - type: web
+    name: attendance-system-api
+    runtime: node
+    region: oregon
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: MONGODB_URI
+        sync: false  # Set manually in Render dashboard
+      - key: CORS_ORIGIN
+        sync: false  # Set to your Vercel frontend URL
